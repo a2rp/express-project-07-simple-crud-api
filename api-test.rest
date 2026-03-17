@@ -1,0 +1,86 @@
+@baseUrl = http://localhost:1198
+
+### Root Route
+GET {{baseUrl}}/
+
+###
+
+### Get All Notes
+GET {{baseUrl}}/notes
+
+###
+
+### Get Single Note - Existing
+GET {{baseUrl}}/notes/1
+
+###
+
+### Get Single Note - Not Found
+GET {{baseUrl}}/notes/999
+
+###
+
+### Create Note
+POST {{baseUrl}}/notes
+Content-Type: application/json
+
+{
+  "title": "New Note",
+  "content": "This is a new note"
+}
+
+###
+
+### Create Note - Missing Fields
+POST {{baseUrl}}/notes
+Content-Type: application/json
+
+{
+  "title": "Only Title"
+}
+
+###
+
+### Update Note - Full Update
+PUT {{baseUrl}}/notes/1
+Content-Type: application/json
+
+{
+  "title": "Updated First Note",
+  "content": "This note has been updated"
+}
+
+###
+
+### Update Note - Partial Update
+PUT {{baseUrl}}/notes/2
+Content-Type: application/json
+
+{
+  "title": "Updated Second Note Title Only"
+}
+
+###
+
+### Update Note - Not Found
+PUT {{baseUrl}}/notes/999
+Content-Type: application/json
+
+{
+  "title": "Ghost Note"
+}
+
+###
+
+### Delete Note - Existing
+DELETE {{baseUrl}}/notes/1
+
+###
+
+### Delete Note - Not Found
+DELETE {{baseUrl}}/notes/999
+
+###
+
+### Get All Notes Again After Changes
+GET {{baseUrl}}/notes
