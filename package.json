@@ -1,7 +1,7 @@
 {
     "name": "express-project-07-simple-crud-api",
     "version": "1.0.0",
-    "description": "",
+    "description": "An Express.js notes API demonstrating CRUD, validated request bodies, and in-memory storage.",
     "main": "index.js",
     "scripts": {
         "start": "node index.js",
@@ -11,8 +11,17 @@
         "type": "git",
         "url": "git+https://github.com/a2rp/express-project-07-simple-crud-api.git"
     },
-    "keywords": [],
-    "author": "",
+    "keywords": [
+        "express",
+        "expressjs",
+        "nodejs",
+        "rest-api",
+        "crud-api",
+        "notes-api",
+        "in-memory-storage",
+        "request-validation"
+    ],
+    "author": "Ashish Ranjan",
     "license": "ISC",
     "type": "commonjs",
     "bugs": {

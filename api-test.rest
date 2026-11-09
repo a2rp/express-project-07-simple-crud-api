@@ -53,7 +53,7 @@ Content-Type: application/json
 ###
 
 ### Update Note - Partial Update
-PUT {{baseUrl}}/notes/2
+PATCH {{baseUrl}}/notes/2
 Content-Type: application/json
 
 {

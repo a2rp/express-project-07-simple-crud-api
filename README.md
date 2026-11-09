@@ -1,227 +1,108 @@
 # express-project-07-simple-crud-api
 
-A simple Express.js CRUD API for notes using in-memory storage.
-
-## Project Goal
-
-This project is built to understand the core CRUD operations in Express.js.
-
-It covers:
-
-- creating a note
-- reading all notes
-- reading a single note
-- updating a note
-- deleting a note
-- separating code into routes and controllers
-- using JSON request bodies
-- testing APIs with a REST client
-
-## Tech Stack
-
-- Node.js
-- Express.js
-- Nodemon
+A learning project for building a notes CRUD API with Express.js. Notes are held in memory; restarting the server resets them.
 
 ## Features
 
-- GET all notes
-- GET single note by id
-- POST create note
-- PUT update note
-- DELETE note
-- in-memory data storage using a local array
-- modular folder structure with routes and controllers
+- List notes and fetch one note by ID
+- Create, fully replace, partially update, and delete notes
+- Validate IDs and note fields
+- Return JSON responses for malformed JSON
 
-## Project Structure
+## Requirements and setup
 
-```bash
-express-project-07-simple-crud-api
-│
-├── src
-│   ├── controllers
-│   │   └── notes.controller.js
-│   └── routes
-│       └── notes.route.js
-│
-├── api-test.rest
-├── index.js
-├── package.json
-├── package-lock.json
-└── .gitignore
-```
-
-## Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/a2rp/express-project-07-simple-crud-api.git
-cd express-project-07-simple-crud-api
-```
-
-Install dependencies:
+Use Node.js 18 or later. Install dependencies:
 
 ```bash
 npm install
 ```
 
-## Run the Project
-
-Run in development mode:
+Start with automatic restarts during development:
 
 ```bash
 npm run dev
 ```
 
-Run normally:
+Or start the server directly:
 
 ```bash
 npm start
 ```
 
-Server runs at:
+The API listens at `http://localhost:1198`. Example requests are in [`api-test.rest`](./api-test.rest), for the VS Code REST Client.
 
-```bash
-http://localhost:1198
-```
+## Endpoints
 
-## API Endpoints
+| Method | Path | Behavior |
+| --- | --- | --- |
+| `GET` | `/` | API status message |
+| `GET` | `/notes` | Return all notes |
+| `GET` | `/notes/:id` | Return a note by positive integer ID |
+| `POST` | `/notes` | Create a note |
+| `PUT` | `/notes/:id` | Replace both note fields |
+| `PATCH` | `/notes/:id` | Update title, content, or both |
+| `DELETE` | `/notes/:id` | Delete a note |
 
-### Root Route
+Send JSON with `Content-Type: application/json`. A note needs a non-empty `title` (up to 120 characters) and `content` (up to 5,000 characters). Unknown fields, blank values, and invalid IDs return `400 Bad Request`; a valid ID with no matching note returns `404 Not Found`. Malformed JSON also returns `400`.
 
-```http
-GET /
-```
-
-Response:
-
-```json
-{
-    "success": true,
-    "message": "Simple CRUD API is running"
-}
-```
-
-### Get All Notes
-
-```http
-GET /notes
-```
-
-### Get Single Note
-
-```http
-GET /notes/:id
-```
-
-Example:
-
-```http
-GET /notes/1
-```
-
-### Create Note
+### Create a note
 
 ```http
 POST /notes
 Content-Type: application/json
 ```
 
-Request body:
-
 ```json
 {
-    "title": "New Note",
-    "content": "This is a new note"
+  "title": "New Note",
+  "content": "This is a new note"
 }
 ```
 
-### Update Note
+### Replace a note
+
+`PUT` requires both `title` and `content`:
 
 ```http
-PUT /notes/:id
+PUT /notes/1
 Content-Type: application/json
 ```
 
-Example body:
-
 ```json
 {
-    "title": "Updated Note Title",
-    "content": "Updated note content"
+  "title": "Updated Note",
+  "content": "Updated note content"
 }
 ```
 
-### Delete Note
+### Partially update a note
+
+`PATCH` accepts either field, or both:
 
 ```http
-DELETE /notes/:id
+PATCH /notes/2
+Content-Type: application/json
 ```
 
-## Testing APIs
+```json
+{
+  "title": "Updated title only"
+}
+```
 
-You can test the API using:
+## Storage
 
-- VS Code REST Client extension with `api-test.rest`
-- Postman
-- Thunder Client
-- browser for GET routes
+The starter dataset and later changes live in a JavaScript array. This demonstrates CRUD behavior without a database; all changes disappear when the process restarts.
 
-## Important Note
-
-This project uses in-memory storage.
-
-That means:
-
-- notes are stored in a JavaScript array
-- data is not saved in a real database
-- restarting the server resets the data
-
-This is useful for learning CRUD logic before moving to MongoDB or another database.
-
-## Learning Outcome
-
-By building this project, you learn how to:
-
-- build a CRUD API in Express.js
-- organize backend code using routes and controllers
-- work with request params and request body
-- send proper JSON responses
-- handle simple validation
-- test APIs during development
-
-## Future Improvements
-
-- connect MongoDB for persistent storage
-- add request validation
-- use UUID instead of manual id generation
-- add timestamps
-- add error handling middleware
-
-## Author
-
-Ashish Ranjan
-
-Follow me:
+## Author and links
 
 - GitHub: https://github.com/a2rp
 - Portfolio: https://www.ashishranjan.net
 - LinkedIn: https://www.linkedin.com/in/aashishranjan
 - Facebook: https://www.facebook.com/theash.ashish/
-
-## Links
-
-- Portfolio: [https://www.ashishranjan.net](https://www.ashishranjan.net)
-- GitHub: [https://github.com/a2rp](https://github.com/a2rp)
-- CodePen: [https://codepen.io/ash1198](https://codepen.io/ash1198)
-- LinkedIn: [https://www.linkedin.com/in/aashishranjan](https://www.linkedin.com/in/aashishranjan)
-- Facebook: [https://www.facebook.com/theash.ashish/](https://www.facebook.com/theash.ashish/)
-- YouTube: [https://www.youtube.com/@ashishranjan-ashz?sub_confirmation=1](https://www.youtube.com/@ashishranjan-ashz?sub_confirmation=1)
-- Email: [ash.ranjan09@gmail.com](mailto:ash.ranjan09@gmail.com)
-
-## Support
-
-- Support: [https://a2rp-donation-page.netlify.app/](https://a2rp-donation-page.netlify.app/)
-- Buy Me A Coffee: [https://buymeacoffee.com/a2rp](https://buymeacoffee.com/a2rp)
-- Patreon: [https://patreon.com/a2rp](https://patreon.com/a2rp)
+- CodePen: https://codepen.io/ash1198
+- YouTube: https://www.youtube.com/@ashishranjan-ashz?sub_confirmation=1
+- Email: ash.ranjan09@gmail.com
+- Support: https://a2rp-donation-page.netlify.app/
+- Buy Me a Coffee: https://buymeacoffee.com/ashishranjan
+- Patreon: https://patreon.com/ashishranjan
