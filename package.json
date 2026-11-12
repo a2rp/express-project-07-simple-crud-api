@@ -1,5 +1,6 @@
 {
     "name": "express-project-07-simple-crud-api",
+    "private": true,
     "version": "1.0.0",
     "description": "An Express.js notes API demonstrating CRUD, validated request bodies, and in-memory storage.",
     "main": "index.js",
